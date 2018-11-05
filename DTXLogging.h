@@ -11,7 +11,9 @@
 #ifdef __OBJC__
 #import <Foundation/Foundation.h>
 
+#if __has_include("DTXLoggingSubsystem.h")
 #include "DTXLoggingSubsystem.h"
+#endif
 #ifndef DTX_LOG_SUBSYSTEM
 #error No log subsystem defined.
 #endif
@@ -28,6 +30,10 @@ __current_file_log = os_log_create(DTX_LOG_SUBSYSTEM, #name); \
 #define dtx_log_debug(format, ...) __dtx_log(__current_file_log, OS_LOG_TYPE_DEBUG, __current_log_prefix, format, ##__VA_ARGS__)
 #define dtx_log_info(format, ...) __dtx_log(__current_file_log, OS_LOG_TYPE_INFO, __current_log_prefix, format, ##__VA_ARGS__)
 #define dtx_log_error(format, ...) __dtx_log(__current_file_log, OS_LOG_TYPE_ERROR, __current_log_prefix, format, ##__VA_ARGS__)
+#define dtx_log_fault(format, ...) __dtx_log(__current_file_log, OS_LOG_TYPE_FAULT, __current_log_prefix, format, ##__VA_ARGS__)
 
-extern void __dtx_log(os_log_t log, os_log_type_t logType, NSString* prefix, NSString* format, ...) NS_FORMAT_FUNCTION(4,5);
+extern
+__attribute__((__not_tail_called__))
+__attribute__((__nothrow__))
+void __dtx_log(os_log_t log, os_log_type_t logType, NSString* prefix, NSString* format, ...) NS_FORMAT_FUNCTION(4,5);
 #endif
