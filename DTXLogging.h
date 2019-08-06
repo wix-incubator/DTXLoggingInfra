@@ -37,8 +37,8 @@ return __current_file_log; \
 #define dtx_log_error(format, ...) __dtx_log(__prepare_and_return_file_log(), OS_LOG_TYPE_ERROR, __current_log_prefix, format, ##__VA_ARGS__)
 #define dtx_log_fault(format, ...) __dtx_log(__prepare_and_return_file_log(), OS_LOG_TYPE_FAULT, __current_log_prefix, format, ##__VA_ARGS__)
 
-extern
 __attribute__((__not_tail_called__))
 __attribute__((__nothrow__))
+__attribute__((visibility("hidden")))
 void __dtx_log(os_log_t log, os_log_type_t logType, NSString* prefix, NSString* format, ...) NS_FORMAT_FUNCTION(4,5);
 #endif
