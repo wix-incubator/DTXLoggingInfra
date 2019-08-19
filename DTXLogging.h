@@ -41,4 +41,9 @@ __attribute__((__not_tail_called__))
 __attribute__((__nothrow__))
 __attribute__((visibility("hidden")))
 void __dtx_log(os_log_t log, os_log_type_t logType, NSString* prefix, NSString* format, ...) NS_FORMAT_FUNCTION(4,5);
+
+__attribute__((__not_tail_called__))
+__attribute__((__nothrow__))
+__attribute__((visibility("hidden")))
+void __dtx_logv(os_log_t log, os_log_type_t logType, NSString* prefix, NSString* format, va_list args);
 #endif

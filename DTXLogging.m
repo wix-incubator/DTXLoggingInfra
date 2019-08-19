@@ -13,8 +13,13 @@ void __dtx_log(os_log_t log, os_log_type_t logType, NSString* prefix, NSString* 
 {
 	va_list argumentList;
 	va_start(argumentList, format);
-	NSString* message = [[NSString alloc] initWithFormat:format arguments:argumentList];
+	__dtx_logv(log, logType, prefix, format, argumentList);
 	va_end(argumentList);
+}
+
+void __dtx_logv(os_log_t log, os_log_type_t logType, NSString* prefix, NSString* format, va_list args)
+{
+	NSString* message = [[NSString alloc] initWithFormat:format arguments:args];
 	
 	os_log_with_type(log, logType, "%{public}s%{public}s", prefix.UTF8String, message.UTF8String);
 }
