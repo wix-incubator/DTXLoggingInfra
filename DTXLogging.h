@@ -8,7 +8,7 @@
 
 #import <os/log.h>
 
-#ifdef __OBJC__
+#if __OBJC__
 #import <Foundation/Foundation.h>
 
 #if __has_include("DTXLoggingSubsystem.h")
