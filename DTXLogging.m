@@ -9,6 +9,11 @@
 @import Foundation;
 #import "DTXLogging.h"
 
+NSString* __dtx_log_get_subsystem(void)
+{
+	return @DTX_LOG_SUBSYSTEM;
+}
+
 void __dtx_log(os_log_t log, os_log_type_t logType, NSString* prefix, NSString* format, ...)
 {
 	va_list argumentList;
@@ -19,6 +24,11 @@ void __dtx_log(os_log_t log, os_log_type_t logType, NSString* prefix, NSString* 
 
 void __dtx_logv(os_log_t log, os_log_type_t logType, NSString* prefix, NSString* format, va_list args)
 {
+	if(os_log_type_enabled(log, logType) == false)
+	{
+		return;
+	}
+	
 	NSString* message = [[NSString alloc] initWithFormat:format arguments:args];
 	
 	os_log_with_type(log, logType, "%{public}s%{public}s", prefix.UTF8String, message.UTF8String);

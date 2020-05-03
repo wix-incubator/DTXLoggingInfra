@@ -7,20 +7,18 @@
 //
 
 #import <Foundation/Foundation.h>
-#define DTX_LOG_SUBSYSTEM ""
+
 #import "DTXLogging.h"
+#import "dtxlog-Swift.h"
+
+DTX_CREATE_LOG(Test)
 
 int main(int argc, const char * argv[]) {
 	@autoreleasepool {
-//		if(argc != 3)
-//		{
-//			return -1;
-//		}
-		
-		os_log_t __current_file_log = os_log_create("ZZZ", "AAA");
-		NSString* __current_log_prefix = @"";
 		dtx_log_info(@"test");
 		dtx_log_fault(@"test2");
+		
+		swift_test_logs();
 	}
 	return 0;
 }
