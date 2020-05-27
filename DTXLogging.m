@@ -9,10 +9,12 @@
 @import Foundation;
 #import "DTXLogging.h"
 
+#ifdef DTX_LOG_SUBSYSTEM
 NSString* __dtx_log_get_subsystem(void)
 {
 	return @DTX_LOG_SUBSYSTEM;
 }
+#endif
 
 void __dtx_log(os_log_t log, os_log_type_t logType, NSString* prefix, NSString* format, ...)
 {

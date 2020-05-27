@@ -35,7 +35,11 @@ public class DetoxLog {
 		}
 		
 		self.prefix = prefix
-		log = OSLog(subsystem: _subsystem!, category: category)
+		if _subsystem == nil {
+			log = OSLog.default
+		} else {
+			log = OSLog(subsystem: _subsystem!, category: category)
+		}
 	}
 	
 	public func debug(_ message: @autoclosure () -> String) {

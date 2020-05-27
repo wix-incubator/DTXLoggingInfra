@@ -14,10 +14,7 @@
 #if __has_include("DTXLoggingSubsystem.h")
 #include "DTXLoggingSubsystem.h"
 #endif
-#ifndef DTX_LOG_SUBSYSTEM
-#error No log subsystem defined.
-#endif
-
+#ifdef DTX_LOG_SUBSYSTEM
 #define DTX_CREATE_LOG(name) DTX_CREATE_LOG_PREFIX(name, @"");
 
 #define DTX_CREATE_LOG_PREFIX(name, prefix) static NSString* __current_log_prefix = prefix;\
@@ -31,6 +28,9 @@ __unused static os_log_t __prepare_and_return_file_log(void) { \
 	}); \
 	return __current_file_log; \
 }
+#else
+#define __prepare_and_return_file_log() OS_LOG_DEFAULT
+#endif
 
 #define dtx_log_debug(format, ...) __dtx_log(__prepare_and_return_file_log(), OS_LOG_TYPE_DEBUG, __current_log_prefix, format, ##__VA_ARGS__)
 #define dtx_log_info(format, ...) __dtx_log(__prepare_and_return_file_log(), OS_LOG_TYPE_INFO, __current_log_prefix, format, ##__VA_ARGS__)
