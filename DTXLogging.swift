@@ -11,7 +11,7 @@ import Darwin
 
 public class DetoxLog {
 	private let prefix : String
-	private let log : OSLog
+	public let osLog : OSLog
 	
 	public convenience init(category: String, prefix: String = "") {
 		self.init(_subsystem: nil, category: category, prefix: prefix)
@@ -36,9 +36,9 @@ public class DetoxLog {
 		
 		self.prefix = prefix
 		if _subsystem == nil {
-			log = OSLog.default
+			osLog = OSLog.default
 		} else {
-			log = OSLog(subsystem: _subsystem!, category: category)
+			osLog = OSLog(subsystem: _subsystem!, category: category)
 		}
 	}
 	
@@ -59,10 +59,10 @@ public class DetoxLog {
 	}
 	
 	private func log(_ message: @autoclosure () -> String, type: OSLogType) {
-		guard log.isEnabled(type: type) else {
+		guard osLog.isEnabled(type: type) else {
 			return
 		}
 		
-		os_log("%{public}s%{public}s", log: log, type: type, prefix, message())
+		os_log("%{public}s%{public}s", log: osLog, type: type, prefix, message())
 	}
 }
