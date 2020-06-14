@@ -18,6 +18,11 @@ NSString* __dtx_log_get_subsystem(void)
 
 void __dtx_log(os_log_t log, os_log_type_t logType, NSString* prefix, NSString* format, ...)
 {
+	if(os_log_type_enabled(log, logType) == false)
+	{
+		return;
+	}
+	
 	va_list argumentList;
 	va_start(argumentList, format);
 	__dtx_logv(log, logType, prefix, format, argumentList);
