@@ -29,6 +29,8 @@ __unused static os_log_t __prepare_and_return_file_log(void) { \
 	return __current_file_log; \
 }
 #else
+#define DTX_CREATE_LOG(name)
+#define DTX_CREATE_LOG_PREFIX(name, prefix)
 #define __prepare_and_return_file_log() OS_LOG_DEFAULT
 #endif
 
